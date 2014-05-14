@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @opportunity.title
+%p
+  %b Description:
+  = @opportunity.description
+%p
+  %b Date:
+  = @opportunity.date
+%p
+  %b Start time:
+  = @opportunity.start_time
+%p
+  %b End time:
+  = @opportunity.end_time
+%p
+  %b Number of positions:
+  = @opportunity.number_of_positions
+
+= link_to 'Edit', edit_opportunity_path(@opportunity)
+\|
+= link_to 'Back', opportunities_path
