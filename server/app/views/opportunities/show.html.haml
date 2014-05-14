@@ -1,24 +1,33 @@
-%p#notice= notice
+- model_class = Opportunity
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.titleize
 
 %p
-  %b Title:
+  %strong= model_class.human_attribute_name(:title) + ':'
+  %br
   = @opportunity.title
 %p
-  %b Description:
+  %strong= model_class.human_attribute_name(:description) + ':'
+  %br
   = @opportunity.description
 %p
-  %b Date:
+  %strong= model_class.human_attribute_name(:date) + ':'
+  %br
   = @opportunity.date
 %p
-  %b Start time:
+  %strong= model_class.human_attribute_name(:start_time) + ':'
+  %br
   = @opportunity.start_time
 %p
-  %b End time:
+  %strong= model_class.human_attribute_name(:end_time) + ':'
+  %br
   = @opportunity.end_time
 %p
-  %b Number of positions:
+  %strong= model_class.human_attribute_name(:number_of_positions) + ':'
+  %br
   = @opportunity.number_of_positions
 
-= link_to 'Edit', edit_opportunity_path(@opportunity)
-\|
-= link_to 'Back', opportunities_path
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")), opportunities_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_opportunity_path(@opportunity), :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), opportunity_path(@opportunity), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
