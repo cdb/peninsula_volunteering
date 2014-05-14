@@ -28,9 +28,9 @@
           %a.brand(href="#") Volunteering
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to "View Opportunities", opportunities_path
+              - if user_signed_in?
+                %li= link_to "Logout", destroy_user_session_path, :method => :delete
 
     .container-fluid
 
@@ -38,13 +38,11 @@
         .span3
           .well.sidebar-nav
             %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li.nav-header Peninsula School 
+              %p Volunteer opportunities listing, this is a super draft application, unfinished at the moment.
         .span9
           = bootstrap_flash
           = yield
     
       %footer
-        %p &copy; Company 2014
+        %p &copy; Cameron Booth 2014
