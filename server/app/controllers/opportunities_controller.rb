@@ -1,4 +1,5 @@
 class OpportunitiesController < ApplicationController
+  before_filter :authenticate_user_from_token!
   before_action :authenticate_user!
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
 
@@ -63,13 +64,26 @@ class OpportunitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_opportunity
-      @opportunity = Opportunity.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def opportunity_params
-      params.require(:opportunity).permit(:title, :description, :date, :start_time, :end_time, :number_of_positions)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_opportunity
+    @opportunity = Opportunity.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def opportunity_params
+    params.require(:opportunity).permit(:title, :description, :date, :start_time, :end_time, :number_of_positions)
+  end
+  
+  def authenticate_user_from_token!
+    user_email = params[:email].presence
+    user = user_email && User.find_by_email(user_email)
+
+    # Notice how we use Devise.secure_compare to compare the token
+    # in the database with the token given in the params, mitigating
+    # timing attacks.
+    if user && Devise.secure_compare(user.authentication_token, params[:token])
+      sign_in user, store: false
     end
+  end
 end
